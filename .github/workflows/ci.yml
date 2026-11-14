@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan (Lean toolchain)
+        run: |
+          curl -sSfL https://release.lean-lang.org/lean4/elan-init.sh \
+            | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Toolchain fingerprint
+        run: |
+          elan show
+          lean --version
+          sha256sum "$(which lean)"
+
+      - name: Fetch mathlib olean cache
+        run: lake exe cache get
+
+      - name: Build (kernel)
+        run: lake build
+
+      - name: Paranoid multi-kernel check (leanchecker+nanoda+lean4lean)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bubblewrap
+          sudo chmod u+s "$(which bwrap)"
+          lake check --paranoid
+
+      # Expected output on every audited declaration:
+      #   '<name>' depends on axioms: [propext, Classical.choice, Quot.sound]
+      # Audited: A046156 (orbit convergence), A046156_seq (verbatim
+      # biconditional on the 16 periodic points), basin_chunk156_0/1
+      # (kernel decide basin certificates, 1001 multisets, fuel 32),
+      # proven_spec_a046156 (N0 spec closure), sat156_c3 (N3 anchor).
+      - name: Axioms report (expected: propext, Classical.choice, Quot.sound)
+        run: |
+          printf 'import A046156\nimport Check_Spec_A046156\nimport Check_AntiVacuite_A046156\n#print axioms A046156\n#print axioms A046156_seq\n#print axioms basin_chunk156_0\n#print axioms basin_chunk156_1\n#print axioms proven_spec_a046156\n#print axioms sat156_c3\n' > AxiomsReport.lean
+          lake env lean AxiomsReport.lean
+          rm AxiomsReport.lean
+
+  # N6 zero-trust scan: forbidden tokens on the publishable files.
+  # Comments (nested /- -/ and line --) and string literals are
+  # stripped by a Python state machine - never a regex - before
+  # the token search. Exit code 0 = zero hit.
+  scan-n6:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Zero-trust scan (forbidden tokens, state-machine filter)
+        run: python scan_n6.py

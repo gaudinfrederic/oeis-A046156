@@ -1,0 +1,36 @@
+name = "a046156"
+version = "0.1.0"
+defaultTargets = ["A046156", "A046156Defs", "A046156Basin0", "A046156Basin1", "Spec_A046156", "Check_Spec_A046156", "Check_AntiVacuite_A046156", "A014080Defs", "A046253Defs"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.35.0"
+
+[[lean_lib]]
+name = "A046253Defs"
+
+[[lean_lib]]
+name = "A014080Defs"
+
+[[lean_lib]]
+name = "A046156Defs"
+
+[[lean_lib]]
+name = "A046156Basin0"
+
+[[lean_lib]]
+name = "A046156Basin1"
+
+[[lean_lib]]
+name = "A046156"
+
+[[lean_lib]]
+name = "Spec_A046156"
+
+[[lean_lib]]
+name = "Check_Spec_A046156"
+
+[[lean_lib]]
+name = "Check_AntiVacuite_A046156"

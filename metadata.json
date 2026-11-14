@@ -1,41 +1,47 @@
 {
- "title": "The exact limit set of the digit-cube-sum map (OEIS A046156)",
- "description": "OEIS A046156: 'Limit set for operation of repeatedly replacing a number with the sum of the cubes of its digits' (Schroeppel; nonn,fini,full,base). Theorems proved for EVERY natural number with standard axioms only: (i) A046156_seq - the periodic points of the map 'sum of the cubes of the decimal digits' (A055012) are exactly the 16 numbers 0, 1, 55, 133, 136, 153, 160, 217, 244, 250, 352, 370, 371, 407, 919, 1459, an unconditional biconditional (0 is a genuine fixed point in both conventions: 0^3 = 0 and Nat.digits 10 0 = [] give cubeSum 0 = 0; no m != 0 hypothesis anywhere); (ii) A046156 - convergence: every orbit reaches the set. Proof structure: (a) descent bound cubeSum_le / A046156_bound - cubeSum n <= 729 * (digit count), so every orbit of a number with more than 4 digits decreases (classical argument documented on the related OEIS entries, formalized); (b) exhaustive finite certificate: the residual case reduces to the 1001 = C(14,4) sorted digit-multisets of length <= 4 enumerated by genMultisets 4 0, each verified by kernel decide to reach one of the 16 attractor multiset-classes within fuel 32 (basin_chunk156_0 / basin_chunk156_1 in 2 slices 500 + 501, reassembled as basin_all156); (c) cycle structure certified by fin_cases + decide - 6 fixed points {0,1,153,370,371,407} (companion entry A046197), two 2-cycles {136,244} and {919,1459}, two 3-cycles {55,250,133} and {160,217,352}. Spec/check layer included: Spec_A046156 (pure abbrev statement), Check_Spec_A046156 (closure proven_spec_a046156 : SpecPropA046156 := A046156_seq), Check_AntiVacuite_A046156 (cycles verified numerically, anchors cubeSum 10 = 1 / cubeSum 0 = 0, ablation 99999 -> 3645 < 10^4, non-member 2 excluded). Scope: the entry already carries fini,full; the artifact is a kernel-certified machine verification of the complete limit set as an unconditional biconditional. Statement fidelity to the OEIS entry wording checked by independent external review (unanimous). Trust base: the three standard axioms only; zero native_decide, zero sorry; independent forbidden-construct scan clean; lake check --paranoid in CI. Package v7: the archive also ships the frozen OEIS statement spec, the prior-art search trail, the axiom report (70 declarations, standard axioms only) and the multi-kernel seal manifests with replay instructions.",
- "upload_type": "software",
- "creators": [
-  {
-   "name": "Gaudin, Frédéric",
-   "affiliation": "University of Caen Normandy"
+  "title": "The exact limit set of the digit-cube-sum map (OEIS A046156)",
+  "description": "OEIS A046156: 'Limit set for operation of repeatedly replacing a number with the sum of the cubes of its digits' (Schroeppel; nonn,fini,full,base). Theorems proved for EVERY natural number with standard axioms only: (i) A046156_seq - the periodic points of the map 'sum of the cubes of the decimal digits' (A055012) are exactly the 16 numbers 0, 1, 55, 133, 136, 153, 160, 217, 244, 250, 352, 370, 371, 407, 919, 1459, an unconditional biconditional (0 is a genuine fixed point in both conventions: 0^3 = 0 and Nat.digits 10 0 = [] give cubeSum 0 = 0; no m != 0 hypothesis anywhere); (ii) A046156 - convergence: every orbit reaches the set. Proof structure: (a) descent bound cubeSum_le / A046156_bound - cubeSum n <= 729 * (digit count), so every orbit of a number with more than 4 digits decreases (classical argument documented on the related OEIS entries, formalized); (b) exhaustive finite certificate: the residual case reduces to the 1001 = C(14,4) sorted digit-multisets of length <= 4 enumerated by genMultisets 4 0, each verified by kernel decide to reach one of the 16 attractor multiset-classes within fuel 32 (basin_chunk156_0 / basin_chunk156_1 in 2 slices 500 + 501, reassembled as basin_all156); (c) cycle structure certified by fin_cases + decide - 6 fixed points {0,1,153,370,371,407} (companion entry A046197), two 2-cycles {136,244} and {919,1459}, two 3-cycles {55,250,133} and {160,217,352}. Spec/check layer included: Spec_A046156 (pure abbrev statement), Check_Spec_A046156 (closure proven_spec_a046156 : SpecPropA046156 := A046156_seq), Check_AntiVacuite_A046156 (cycles verified numerically, anchors cubeSum 10 = 1 / cubeSum 0 = 0, ablation 99999 -> 3645 < 10^4, non-member 2 excluded). Scope: the entry already carries fini,full; the artifact is a kernel-certified machine verification of the complete limit set as an unconditional biconditional. Statement fidelity to the OEIS entry wording checked by independent external review (unanimous). Trust base: the three standard axioms only; zero native_decide, zero sorry; independent forbidden-construct scan clean; lake check --paranoid in CI. Package v7: the archive also ships the frozen OEIS statement spec, the prior-art search trail, the axiom report (70 declarations, standard axioms only) and the multi-kernel seal manifests with replay instructions.",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Gaudin, Frédéric",
+      "affiliation": "University of Caen Normandy"
+    }
+  ],
+  "license": {
+    "id": "apache-2.0"
+  },
+  "keywords": [
+    "OEIS",
+    "A046156",
+    "digit cube sum",
+    "sum of cubes of digits",
+    "limit set",
+    "periodic points",
+    "kernel certificate",
+    "Lean 4",
+    "mathlib",
+    "formal proof",
+    "theorem prover"
+  ],
+  "version": "1.0.0",
+  "related_identifiers": [
+    {
+      "identifier": "https://oeis.org/A046156",
+      "relation": "documents",
+      "resource_type": "other",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/gaudinfrederic/oeis-A046156",
+      "relation": "isSupplementedBy",
+      "resource_type": "software",
+      "scheme": "url"
+    }
+  ],
+  "custom": {
+    "code:theoremStatus": "theorem-unconditional (limit set = exactly the 16 periodic points, biconditional for all m, 0 included; convergence proved)",
+    "code:leanToolchain": "leanprover/lean4:v4.35.0",
+    "code:mathlibVersion": "v4.35.0"
   }
- ],
- "license": {
-  "id": "apache-2.0"
- },
- "keywords": [
-  "OEIS",
-  "A046156",
-  "digit cube sum",
-  "sum of cubes of digits",
-  "limit set",
-  "periodic points",
-  "kernel certificate",
-  "Lean 4",
-  "mathlib",
-  "formal proof",
-  "theorem prover"
- ],
- "version": "1.0.0",
- "related_identifiers": [
-  {
-   "identifier": "https://oeis.org/A046156",
-   "relation": "documents",
-   "resource_type": "other",
-   "scheme": "url"
-  }
- ],
- "custom": {
-  "code:theoremStatus": "theorem-unconditional (limit set = exactly the 16 periodic points, biconditional for all m, 0 included; convergence proved)",
-  "code:leanToolchain": "leanprover/lean4:v4.35.0",
-  "code:mathlibVersion": "v4.35.0"
- }
 }
